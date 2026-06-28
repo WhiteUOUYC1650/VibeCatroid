@@ -70,7 +70,7 @@ private fun AiAssistFlow(
 
     val tutorStage = stage as? Stage.Tutor
     AiTutorView(
-        show =  tutorStage != null,
+        show = tutorStage != null,
         onDismissRequest = { if (stage is Stage.Tutor) callbacks.close() },
         promptVersion = if (BuildConfig.FLAVOR == Constants.FLAVOR_EMBROIDERY_DESIGNER) {
             PromptVersion.EMBROIDERY_SPRITE
