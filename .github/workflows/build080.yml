@@ -21,10 +21,10 @@ jobs:
         with:
           gradle-version: '2.14.1'
 
-      - name: Build Pure APK
-        # Насильно вызываем сборку именно подмодуля приложения (:catroid), 
-        # отключая любые проверки, тесты и линтеры (-x test -x lint), чтобы ничего не падало
-        run: gradle :catroid:assembleDebug --no-daemon -x test -x lint
+      - name: Build with Base Assemble
+        # Вызываем только базовую команду assemble. Она собирает APK, но в отличие от команды build 
+        # она вообще не пытается запускать или проверять юнит-тесты.
+        run: gradle assemble --no-daemon --stacktrace
         continue-on-error: true
 
       - name: Upload APK
