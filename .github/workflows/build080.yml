@@ -1,4 +1,4 @@
-name: Build Lost 0.8.0 APK
+name: Build Lost 0.8.0 Version APK
 on: workflow_dispatch # Кнопка появится в любой ветке
 
 jobs:
