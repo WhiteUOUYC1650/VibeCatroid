@@ -16,10 +16,15 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
-      # Шаг с chmod +x мы полностью удалили, так как файла gradlew нет
+      # Устанавливаем старый Gradle 2.14.1 вручную, чтобы обойти системный 9.6.1
+      - name: Setup Legacy Gradle
+        run: |
+          wget -q https://gradle.org
+          unzip -q gradle-2.14.1-bin.zip
+          echo "${PWD}/gradle-2.14.1/bin" >> $GITHUB_PATH
 
-      - name: Build APK with global Gradle
-        # Вместо ./gradlew пишем просто gradle (используем системный сборщик сервера)
+      - name: Build APK with Legacy Gradle
+        # Теперь команда запустит именно старый скачанный Gradle
         run: gradle assembleDebug --no-daemon --stacktrace
         continue-on-error: true
 
