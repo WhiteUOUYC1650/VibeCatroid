@@ -16,15 +16,14 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
-      # Устанавливаем старый Gradle 2.14.1 вручную, чтобы обойти системный 9.6.1
-      - name: Setup Legacy Gradle
-        run: |
-          wget -q https://gradle.org
-          unzip -q gradle-2.14.1-bin.zip
-          echo "${PWD}/gradle-2.14.1/bin" >> $GITHUB_PATH
+      # Используем официальный инструмент от разработчиков Gradle. 
+      # Он сам скачает, распакует и пропишет пути для версии 2.14.1 без ошибок.
+      - name: Setup Gradle 2.14.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '2.14.1'
 
       - name: Build APK with Legacy Gradle
-        # Теперь команда запустит именно старый скачанный Gradle
         run: gradle assembleDebug --no-daemon --stacktrace
         continue-on-error: true
 
