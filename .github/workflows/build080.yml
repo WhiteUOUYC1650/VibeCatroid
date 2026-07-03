@@ -3,7 +3,6 @@ on: workflow_dispatch
 
 jobs:
   build:
-    # Меняем на ubuntu-latest, чтобы сервер выдался мгновенно
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -17,11 +16,11 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
-      - name: Grant execute permission
-        run: chmod +x gradlew
+      # Шаг с chmod +x мы полностью удалили, так как файла gradlew нет
 
-      - name: Build APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+      - name: Build APK with global Gradle
+        # Вместо ./gradlew пишем просто gradle (используем системный сборщик сервера)
+        run: gradle assembleDebug --no-daemon --stacktrace
         continue-on-error: true
 
       - name: Upload APK
